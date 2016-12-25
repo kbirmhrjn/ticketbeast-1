@@ -162,10 +162,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+		Zondicons\ZondiconsServiceProvider::class,
 
-        /*
-         * Package Service Providers...
-         */
+
+		/*
+		 * Package Service Providers...
+		 */
 
         //
 
