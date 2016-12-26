@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col col-xs-6">
-                <div class="form-group m-xs-6-4">
+                <div class="form-group m-xs-b-4">
                     <label class="form-label">
                         Qty
                     </label>
@@ -33,17 +33,17 @@
 </template>
 
 <script>
-    export default{
+    export default {
         props: [
             'price',
             'concertTitle',
-            'concertId'
+            'concertId',
         ],
-        data(){
-            return{
+        data() {
+            return {
                 quantity: 1,
                 stripeHandler: null,
-                processing: false
+                processing: false,
             }
         },
         computed: {
@@ -54,14 +54,14 @@
                 return `One ticket to ${this.concertTitle}`
             },
             totalPrice() {
-                return this.quantity + this.price
+                return this.quantity * this.price
             },
             priceInDollars() {
                 return (this.price / 100).toFixed(2)
             },
             totalPriceInDollars() {
                 return (this.totalPrice / 100).toFixed(2)
-            }
+            },
         },
         methods: {
             initStripe() {
@@ -81,17 +81,17 @@
                     description: this.description,
                     currency: "usd",
                     allowRememberMe: false,
-                    panelLabel: 'Pay {{ amount }}',
+                    panelLabel: 'Pay {{amount}}',
                     amount: this.totalPrice,
-                    image: '/img/checkout-icon.png,
-                    token: this.purchaseTickets
+                    image: '/img/checkout-icon.png',
+                    token: this.purchaseTickets,
                 })
             },
             purchaseTickets(token) {
                 console.log({
                     email: token.email,
                     quantity: this.quantity,
-                    payment_token:  token.id
+                    payment_token: token.id,
                 })
 
                 // this.processing = true
@@ -99,9 +99,9 @@
                 // axios.post(`/concerts/${this.concertId}/orders`, {
                 //     email: token.email,
                 //     quantity: this.quantity,
-                //     payment_token:  token.id,
+                //     payment_token: token.id,
                 // }).then(response => {
-                //    window.location.href = response.body.url
+                //     window.location.href = response.body.url
                 // }).catch(response => {
                 //     this.processing = false
                 // })
