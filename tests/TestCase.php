@@ -26,7 +26,11 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         return $app;
     }
 
-    protected function disableExceptionHandling()
+	/**
+	 * Prevents Laravel from translating exceptions to HTTP
+	 * responses, throws exceptions instead.
+	 */
+	protected function disableExceptionHandling()
 	{
 		$this->app->instance(ExceptionHandler::class, new class extends Handler {
 			public function __construct() {}

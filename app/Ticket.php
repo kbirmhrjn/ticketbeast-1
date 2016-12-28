@@ -14,6 +14,10 @@ class Ticket extends Model
 		return $query->whereNull('order_id');
     }
 
+	/**
+	 * Releases tickets from the order it is associated with.
+	 * Simply sets its order_id to null.
+	 */
 	public function release()
 	{
 		$this->update([
