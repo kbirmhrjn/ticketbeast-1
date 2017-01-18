@@ -9,6 +9,16 @@ class Order extends Model
 	protected $guarded = [];
 
 	/**
+	 * An order belongs to a single concert.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function concert()
+	{
+		return $this->belongsTo(Concert::class);
+	}
+
+	/**
 	 * An order has many tickets.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -40,5 +50,14 @@ class Order extends Model
 		}
 
 		$this->delete();
+	}
+
+	public function toArray()
+	{
+		return [
+			'email' => $this->email,
+			'ticket_quantity' => $this->ticketQuantity(),
+			'amount' => $this->ticketQuantity() * $this->concert->ticket_price
+		];
 	}
 }
