@@ -75,8 +75,6 @@ class PurchaseTicketsTest extends TestCase
     /** @test **/
     public function an_order_is_not_created_if_payment_fails()
 	{
-		$this->disableExceptionHandling();
-
 		$concert = factory(Concert::class)->states('published')->create(['ticket_price' => 3250])->addTickets(3);
 
 		$this->orderTickets($concert, [
