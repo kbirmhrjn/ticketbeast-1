@@ -8,6 +8,21 @@ class Order extends Model
 {
 	protected $guarded = [];
 
+	public static function forTickets($tickets, $email)
+	{
+		$order = self::create([
+			'email' => $email,
+			'amount' => $tickets->sum('price')
+		]);
+
+		foreach ($tickets as $ticket)
+		{
+			$order->tickets()->save($ticket);
+		}
+
+		return $order;
+	}
+
 	/**
 	 * An order belongs to a single concert.
 	 *
