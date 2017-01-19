@@ -13,9 +13,14 @@ class Reservation {
 		$this->tickets = $tickets;
 	}
 
+	/**
+	 * Determine the total cost of all 
+	 * tickets in this reservation.
+	 * 
+	 * @return int
+	 */
 	public function totalCost()
 	{
 		return $this->tickets->sum('price');
 	}
-	
 }
