@@ -1,5 +1,6 @@
 <?php
 
+use App\Ticket;
 use App\Concert;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -9,9 +10,21 @@ class TicketTest extends TestCase
 {
 	use DatabaseMigrations;
 
-    /** @test **/
-    public function a_ticket_can_be_released()
-    {
+	/** @test */
+		function a_ticket_can_be_reserved()
+		{
+			$ticket = factory(Ticket::class)->create();
+
+			$this->assertNull($ticket->reserved_at);
+
+			$ticket->reserve();
+
+			$this->assertNotNull($ticket->fresh()->reserved_at);
+		}	
+
+  /** @test **/
+  public function a_ticket_can_be_released()
+  {
 		$concert = factory(Concert::class)->create();
 		$concert->addTickets(1);
 
@@ -23,5 +36,5 @@ class TicketTest extends TestCase
 		$ticket->release();
 
 		$this->assertNull($ticket->fresh()->order_id);
-    }
+  }
 }
